@@ -1,91 +1,219 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hafiz Meer Hanzala - Portfolio</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background: linear-gradient(135deg, #007BFF, #00C6FF);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        header img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 5px solid white;
-        }
-        header h1 {
-            margin: 10px 0 5px;
-        }
-        header p {
-            font-size: 18px;
-        }
-        section {
-            max-width: 900px;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #007BFF;
-        }
-        a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-        footer {
-            text-align: center;
-            padding: 15px;
-            background: #333;
-            color: white;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hafiz Meer Hanzala — Web Developer</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1720;
+      --muted:#98a0aa;
+      --accent:#ff7a18;
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.02);
+      --white: #e6eef6;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background: linear-gradient(180deg, #071018 0%, #08101a 100%);
+      color:var(--white); -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale; line-height:1.45;
+      padding:28px;
+    }
+
+    .container{
+      max-width:1100px; margin:0 auto;
+      display:grid; gap:24px;
+      grid-template-columns: 320px 1fr;
+      align-items:start;
+    }
+
+    header.top{
+      grid-column:1/-1; display:flex; justify-content:space-between; align-items:center;
+      padding:14px 18px; background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
+      border-radius:14px; box-shadow: 0 6px 20px rgba(2,6,23,0.6);
+      backdrop-filter: blur(6px);
+    }
+    .brand{display:flex; gap:12px; align-items:center;}
+    .brand img{height:44px; width:auto; border-radius:8px;}
+    .brand .txt{font-weight:600; letter-spacing:0.2px}
+    .brand .sub{font-size:13px; color:var(--muted); margin-top:2px}
+
+    /* left column */
+    .profile-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:14px; padding:22px; text-align:center;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      position:relative; overflow:hidden;
+    }
+    .photo{
+      width:160px; height:160px; margin:0 auto; border-radius:50%;
+      overflow:hidden; border:6px solid rgba(255,255,255,0.04);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      transform:translateY(0); opacity:0; transition:all 800ms cubic-bezier(.2,.9,.3,1);
+    }
+    .photo img{width:100%; height:100%; object-fit:cover; display:block}
+    .profile-card h2{margin:12px 0 6px; font-size:20px}
+    .profile-card p.role{color:var(--muted); margin:0 0 12px; font-size:14px}
+    .meta{display:flex; justify-content:center; gap:12px; color:var(--muted); font-size:13px}
+    .skill-badges{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:14px}
+    .badge{background:var(--glass); padding:8px 10px; border-radius:999px; font-size:13px; color:var(--white); border:1px solid rgba(255,255,255,0.03)}
+
+    /* main content */
+    main.card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border-radius:14px; padding:22px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      min-height:280px;
+    }
+    .section{margin-bottom:18px; opacity:0; transform:translateY(18px); transition: all 700ms cubic-bezier(.2,.9,.3,1); border-radius:8px;}
+    .section.revealed{opacity:1; transform:none}
+
+    h3{margin:0 0 10px; font-size:16px}
+    p.lead{color:var(--muted); margin:0 0 12px}
+    .skills-grid{display:flex; gap:10px; flex-wrap:wrap}
+    .skill-card{
+      flex: 1 1 140px; min-width:140px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.03);
+      display:flex; align-items:center; gap:10px;
+      transition: transform 300ms ease, box-shadow 300ms ease;
+    }
+    .skill-card:hover{transform:translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.6)}
+    .skill-ico{width:44px; height:44px; border-radius:8px; display:grid; place-items:center; background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); font-weight:700}
+
+    .projects a{
+      display:inline-block; color:var(--accent); text-decoration:none; font-weight:600;
+    }
+
+    .contact{display:flex; gap:12px; flex-wrap:wrap}
+    .contact a{background:var(--glass-2); padding:10px 12px; border-radius:8px; color:var(--white); text-decoration:none; border:1px solid rgba(255,255,255,0.02)}
+
+    footer{grid-column:1/-1; text-align:center; color:var(--muted); font-size:13px; margin-top:6px}
+
+    /* responsive */
+    @media (max-width:900px){
+      .container{grid-template-columns: 1fr; padding:0 8px}
+      header.top{flex-direction:column; gap:10px; align-items:flex-start}
+      .profile-card{order:2}
+      main.card{order:1}
+    }
+
+    /* small animated accent */
+    .accent-underline{
+      display:inline-block; height:6px; width:56px; background:linear-gradient(90deg,var(--accent), #ffb06a); border-radius:6px; margin-left:8px; vertical-align:middle;
+      transform:translateY(3px);
+    }
+
+    /* subtle float */
+    .floaty{
+      position:absolute; right:-40px; top:-40px; width:160px; height:160px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,122,24,0.06), transparent 30%);
+      pointer-events:none;
+    }
+
+  </style>
 </head>
 <body>
+  <div class="container">
+    <header class="top" role="banner">
+      <div class="brand">
+        <img src="logo.png" alt="Business Brain System logo" onerror="this.style.display='none'"/>
+        <div>
+          <div style="font-size:18px; font-weight:700">Business Brain System</div>
+          <div class="sub">Professional Web Services</div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-weight:700">Hafiz Meer Hanzala</div>
+        <div style="color:var(--muted); font-size:13px">Web Developer • 8 years experience</div>
+      </div>
+    </header>
 
-<header>
-    <img src="profile.jpg" alt="Hafiz Meer Hanzala">
-    <h1>Hafiz Meer Hanzala</h1>
-    <p>Web Developer | PHP Expert | 8 Years Experience</p>
-</header>
+    <aside class="profile-card" aria-label="Profile">
+      <div class="floaty" aria-hidden="true"></div>
+      <div class="photo" id="profilePhoto">
+        <img src="photo.jpg" alt="Profile photo" onerror="this.style.filter='grayscale(1)';"/>
+      </div>
+      <h2>Hafiz Meer Hanzala</h2>
+      <p class="role">Web Developer — Business Brain System</p>
+      <div class="meta">
+        <div>📍 Pakistan</div>
+        <div>💼 8 years</div>
+      </div>
 
-<section>
-    <h2>About Me</h2>
-    <p>I am a professional Web Developer with over 8 years of experience in creating dynamic and responsive websites. Currently working at <strong>Business Brain System</strong>, I specialize in HTML, CSS, JavaScript, and PHP.</p>
-</section>
+      <div class="skill-badges" style="margin-top:14px">
+        <span class="badge">HTML</span>
+        <span class="badge">CSS</span>
+        <span class="badge">JavaScript</span>
+        <span class="badge">PHP</span>
+        <span class="badge">Bootstrap</span>
+        <span class="badge">React</span>
+      </div>
+    </aside>
 
-<section>
-    <h2>Skills</h2>
-    <ul>
-        <li>HTML, CSS, JavaScript</li>
-        <li>PHP & MySQL</li>
-        <li>Responsive Web Design</li>
-        <li>Git & GitHub</li>
-    </ul>
-</section>
+    <main class="card" role="main">
+      <section id="about" class="section">
+        <h3>About Me <span class="accent-underline" aria-hidden="true"></span></h3>
+        <p class="lead">
+          I am a passionate Web Developer with 8 years of experience building responsive, user-friendly websites and web apps.
+          I specialise in HTML, CSS, JavaScript and PHP, and use modern tools to deliver fast and maintainable code.
+        </p>
+      </section>
 
-<section>
-    <h2>GitHub</h2>
-    <p>Check my work on <a href="https://github.com/Kashmiribacha" target="_blank">GitHub</a>.</p>
-</section>
+      <section id="skills" class="section">
+        <h3>Skills</h3>
+        <div class="skills-grid">
+          <div class="skill-card"><div class="skill-ico">H</div><div><strong>HTML</strong><div style="color:var(--muted); font-size:13px">Semantic markup</div></div></div>
+          <div class="skill-card"><div class="skill-ico">C</div><div><strong>CSS</strong><div style="color:var(--muted); font-size:13px">Responsive & animations</div></div></div>
+          <div class="skill-card"><div class="skill-ico">JS</div><div><strong>JavaScript</strong><div style="color:var(--muted); font-size:13px">DOM, fetch, interactivity</div></div></div>
+          <div class="skill-card"><div class="skill-ico">P</div><div><strong>PHP</strong><div style="color:var(--muted); font-size:13px">Backend & forms</div></div></div>
+          <div class="skill-card"><div class="skill-ico">B</div><div><strong>Bootstrap</strong><div style="color:var(--muted); font-size:13px">Quick UI</div></div></div>
+          <div class="skill-card"><div class="skill-ico">R</div><div><strong>React</strong><div style="color:var(--muted); font-size:13px">SPA & components</div></div></div>
+        </div>
+      </section>
 
-<footer>
-    &copy; 2025 Hafiz Meer Hanzala | Business Brain System
-</footer>
+      <section id="projects" class="section projects">
+        <h3>Projects & GitHub</h3>
+        <p class="lead">Aap mera code aur live projects yahan dekh sakte hain:</p>
+        <p><a href="https://github.com/Kashmiribacha" target="_blank" rel="noopener">https://github.com/Kashmiribacha</a></p>
+      </section>
 
+      <section id="contact" class="section">
+        <h3>Contact</h3>
+        <div class="contact">
+          <a href="mailto:mirhanzala890@gmail.com">✉ mirhanzala890@gmail.com</a>
+          <a href="tel:+923181857986">📞 0318-1857986</a>
+          <a href="#" onclick="window.open('https://github.com/Kashmiribacha','_blank')">🐙 GitHub</a>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>© <span id="year"></span> Business Brain System — Built by Hafiz Meer Hanzala</footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const sections = document.querySelectorAll('.section');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, {threshold:0.15});
+    sections.forEach(s=>io.observe(s));
+    window.addEventListener('load', ()=> {
+      const p = document.getElementById('profilePhoto');
+      setTimeout(()=> p.style.opacity=1, 200);
+      setTimeout(()=> p.style.transform='translateY(-6px)', 220);
+    });
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Tab') document.documentElement.style.scrollBehavior = 'smooth';
+    });
+  </script>
 </body>
 </html>
